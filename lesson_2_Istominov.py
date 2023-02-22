@@ -34,5 +34,5 @@ else:
 dollar_buy_rate = 37.2
 amount_uah = float(input("\nЯку суму ви хочете поміняти у долари?: "))
 exchange_uah_dollar = amount_uah / dollar_buy_rate
-exchange_uah_dollar = exchange_uah_dollar.__round__(2)
+exchange_uah_dollar = round(exchange_uah_dollar, 2)
 print("За поточним курсом ви отримаєте: {} $".format(exchange_uah_dollar))
