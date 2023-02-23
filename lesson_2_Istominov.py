@@ -19,7 +19,7 @@ print(full_name)
 
 # Exercise 2
 
-radius = int(input("\nВведіть радіус кола: "))
+radius = float(input("\nВведіть радіус кола: "))
 circle_length = 2 * math.pi * radius
 circle_area = math.pi * radius ** 2
 
