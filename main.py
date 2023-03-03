@@ -51,11 +51,26 @@ import datetime
 # print(3 == 5) or (16 == 16)
 # print((2 + 2 ==4) and not (2 + 2 == 5) and (2 + 2 == 2 * 2))
 
-while True:
-    x = int(input("Enter value: "))
-    if x > 10:
-        print("result is bigger than x")
-    elif x == 10:
-        print("Result is equal to 10")
-    else:
-        print("result is less than x")
+# while True:
+#     x = int(input("Enter value: "))
+#     if x > 10:
+#         print("result is bigger than x")
+#     elif x == 10:
+#         print("Result is equal to 10")
+#     else:
+#         print("result is less than x")
+
+
+# Task 2
+
+# user_dict = {
+#     1: 'Ihor',
+#     2: 'Masha',
+#     3: 'Roman',
+#     4: 'Marina',
+#     5: 'Andrii',
+#     6: 'Alena'
+# }
+#
+# user_id = int(input("Enter user id from 1 to 6: "))
+# print(f'Hello, {user_dict.get(user_id, "all!")}')
