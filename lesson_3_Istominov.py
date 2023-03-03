@@ -7,10 +7,10 @@ min = random.randint(0, 60)
 if 0 <= min <= 14:
     print(min)
     print("First quarter")
-elif 15 <= min <= 30:
+elif min <= 30:
     print(min)
     print("Second quarter")
-elif 31 <= min <= 45:
+elif min <= 45:
     print(min)
     print("Third quarter")
 else:
@@ -66,9 +66,9 @@ elif x < 0 and y < 0:
     print("Координати знаходяться у третій чверті")
 elif x > 0 and y < 0:
     print("Координати знаходяться у четвертій чверті")
-elif x == 0 and y > 0 or y < 0:
+elif x == 0 and y != 0:
     print("Координати знаходяться на осі Y")
-elif x > 0 or x < 0 and y == 0:
+elif x != 0 and y == 0:
     print("Координати знаходяться на осі X")
 else:
     print("Координати знаходяться в нульовій точці системи координат")
