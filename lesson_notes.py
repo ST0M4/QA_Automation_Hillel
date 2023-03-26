@@ -74,3 +74,17 @@ import datetime
 #
 # user_id = int(input("Enter user id from 1 to 6: "))
 # print(f'Hello, {user_dict.get(user_id, "all!")}')
+
+# var_2 = lambda x, y: x*y
+# print(var_2(2, 4))
+
+"""Напишіть програму Python для пошуку паліндромів у заданому списку рядків за допомогою Lambda. 
+Оригінальний список рядків:
+['php', 'w3r', 'Python', 'abcd', 'Java', 'aaa']
+Список паліндромів:
+['php', 'aaa']
+"""
+
+list_1 = ['php', 'w3r', 'Python', 'abcd', 'Java', 'aaa']
+polindrom = list(filter((lambda x: True if x == x[::-1] else False), list_1))
+print(polindrom)
