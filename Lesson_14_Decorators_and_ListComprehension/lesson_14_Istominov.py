@@ -29,5 +29,6 @@ comprehension_list = [random.randint(1, 10) for item in range(100)]
 c = Counter(comprehension_list)
 # OR
 count_list = {i: comprehension_list.count(i) for i in comprehension_list}
+# print(comprehension_list)
 print(c)
 print(count_list)
