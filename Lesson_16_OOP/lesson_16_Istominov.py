@@ -19,16 +19,16 @@ class Transport(ABC):
 
 class Cars(Transport):
     def __init__(self):
-      super(Cars, self).__init__()
-      self.type_of_transport = 'Ground'
-      self.brand = None
-      self.wheels = 4
-      self.engine = True
+        super(Cars, self).__init__()
+        self.type_of_transport = 'Ground'
+        self.brand = None
+        self.wheels = 4
+        self.engine = True
 
     def passenger_seats(self, num):
         if num <= 5:
             return 'This is not a bus'
-        elif num <=10:
+        elif num <= 10:
             return 'This is a bus'
         else:
             return 'Not valid number'
@@ -80,9 +80,3 @@ print(motorcycle.engine_type('Gas'))
 car_01 = Cars()
 print(car_01.passenger_seats(6))
 motorcycle.sound()
-
-
-
-
-
-
