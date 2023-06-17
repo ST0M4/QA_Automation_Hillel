@@ -2,15 +2,16 @@
 import time
 from Lesson_23_Implicit_Explicit_Wait.pages.base_page import BasePage
 from selenium.webdriver.support.select import By
+from selenium.webdriver.common.keys import Keys
 
 
 class SignIn(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
-        self.sign_in_button = (By.XPATH, '/html/body/div[1]/div/div[1]/button')
+        self.sign_in_button = (By.XPATH, '//div[@class="wrapper"]//button[contains(text(), "Войти")]')
         self.login_input_field = (By.XPATH, '//*[@id="login_name"]')
         self.pass_input_field = (By.XPATH, '//*[@id="login_password"]')
-        self.authorize_button = (By.XPATH, '/html/body/div[3]/form/div/div[3]/button')
+        self.authorize_button = (By.XPATH, '//div[@class="login__row"]//button[@title="Вход"]')
         self.login = 'andrey_lk93'
         self.password = 'beast13'
         self.sign_out_button = (By.XPATH, '//*[@id="user-menu"]/ul/li[7]/a/span')
@@ -22,28 +23,28 @@ class SignIn(BasePage):
         self._wait_until_element_appears_and_click(self.sign_out_button)
 
     def enter_login(self):
-        self._wait_until_el_appears_for_input(self.login_input_field, self.login)
+        self._wait_until_element_appears_for_input(self.login_input_field, self.login)
 
     def enter_password(self):
-        self._wait_until_el_appears_for_input(self.pass_input_field, self.password)
+        self._wait_until_element_appears_for_input(self.pass_input_field, self.password)
 
-    def authorize_button(self):
+    def authorization(self):
         self._wait_until_element_appears_and_click(self.authorize_button)
 
 
 class WebsiteSettings(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
-        self.light_theme = (By.XPATH, '//html/body/div[1]/div/div[2]/ul[2]/li[1]/span')
-        self.normal_theme = (By.XPATH, '/html/body/div[1]/div/div[2]/ul[2]/li[5]/span')
-        self.dark_theme = (By.XPATH, '/html/body/div[1]/div/div[2]/ul[2]/li[3]/span')
-        self.old_theme = (By.XPATH, '/html/body/div[1]/div/div[2]/ul[2]/li[4]/span')
-        self.search_input = (By.XPATH, '/html/body/div[1]/div/div[1]/div/form/input')
+        self.light_theme = (By.XPATH, '//li[@data-theme="light2"]')
+        self.normal_theme = (By.XPATH, '//li[@data-theme="normal"]')
+        self.dark_theme = (By.XPATH, '//li[@data-theme="dark"]')
+        self.old_theme = (By.XPATH, '//li[@data-theme="old"]')
+        self.search_input = (By.XPATH, '//div[@class="wrapper"]//form/input[@placeholder="Ищи и на английском"]')
         self.subscriptions = (By.XPATH, '//*[@id="user-menu"]/ul/li[2]/a')
         self.input_info = 'мандалорец'
         self.select_option_from_search = (By.XPATH, '//*[@id="film-47594"]/a/div[1]')
         self.play_button = (By.XPATH, '//*[@id="overroll"]/div/form/button')
-        self.choose_player = (By.XPATH, '/html/body/div[1]/div[4]')
+        self.choose_player = (By.XPATH, '//*[@class="player-select"]/div[@data-name="voidboost"]')
         self.season_button = (By.XPATH, '//*[@id="selectors"]/span[1]/div/span')
         self.choose_season_1 = (By.XPATH, '//*[@id="selectors"]/span[1]/div/ul/li[1]')
         self.episode_button = (By.XPATH, '//*[@id="selectors"]/span[2]/div')
@@ -66,6 +67,8 @@ class WebsiteSettings(BasePage):
         self._wait_until_element_appears_and_click(self.choose_episode_1)
 
     def select_player(self):
+        required_frame = self._driver.find_element_by_xpath('//*[@id="film"]')
+        self._driver.switch_to.frame(required_frame)
         self._wait_until_element_appears_and_click(self.choose_player)
 
     def click_play_button(self):
@@ -84,7 +87,7 @@ class WebsiteSettings(BasePage):
         self._wait_until_element_appears_and_click(self.old_theme)
 
     def search_for_show(self):
-        self._wait_until_el_appears_for_input(self.search_input, self.input_info)
+        self._wait_until_element_appears_for_input_and_enter(self.search_input, self.input_info)
 
     def open_subscriptions(self):
         self._wait_until_element_appears_and_click(self.subscriptions)
@@ -101,17 +104,23 @@ class EndToEnd(SignIn, WebsiteSettings):
         SignIn.signin_button(self)
         SignIn.enter_login(self)
         SignIn.enter_password(self)
-        SignIn.authorize_button(self)
+        SignIn.authorization(self)
 
     def play_episode(self):
         WebsiteSettings.search_for_show(self)
         WebsiteSettings.select_option_from_search(self)
         WebsiteSettings.click_play_button(self)
+        time.sleep(3)
         WebsiteSettings.select_player(self)
+        time.sleep(3)
         WebsiteSettings.activate_season_button(self)
+        time.sleep(3)
         WebsiteSettings.select_season(self)
+        time.sleep(3)
         WebsiteSettings.activate_episode_button(self)
+        time.sleep(3)
         WebsiteSettings.select_episode(self)
+        time.sleep(3)
         WebsiteSettings.start_movie(self)
         time.sleep(60)
 
