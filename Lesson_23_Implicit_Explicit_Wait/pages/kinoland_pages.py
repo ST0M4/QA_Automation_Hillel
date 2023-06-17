@@ -2,7 +2,6 @@
 import time
 from Lesson_23_Implicit_Explicit_Wait.pages.base_page import BasePage
 from selenium.webdriver.support.select import By
-from selenium.webdriver.common.keys import Keys
 
 
 class SignIn(BasePage):
@@ -44,32 +43,14 @@ class WebsiteSettings(BasePage):
         self.input_info = 'мандалорец'
         self.select_option_from_search = (By.XPATH, '//*[@id="film-47594"]/a/div[1]')
         self.play_button = (By.XPATH, '//*[@id="overroll"]/div/form/button')
-        self.choose_player = (By.XPATH, '//*[@class="player-select"]/div[@data-name="voidboost"]')
-        self.season_button = (By.XPATH, '//*[@id="selectors"]/span[1]/div/span')
-        self.choose_season_1 = (By.XPATH, '//*[@id="selectors"]/span[1]/div/ul/li[1]')
-        self.episode_button = (By.XPATH, '//*[@id="selectors"]/span[2]/div')
-        self.choose_episode_1 = (By.XPATH, '//*[@id="selectors"]/span[2]/div/ul/li[1]')
-        self.run_player_button = (By.XPATH, '//*[@id="oframeplayer"]/pjsdiv[1]/video')
+        self.history = (By.XPATH, '//*[@id="user-menu"]/ul/li[5]/a/span')
+        self.most_popular = (By.XPATH, '//div[@class="wrapper"]//a[@href="/popular/"]')
 
-    def start_movie(self):
-        self._wait_until_element_appears_and_click(self.run_player_button)
+    def open_history(self):
+        self._wait_until_element_appears_and_click(self.history)
 
-    def activate_season_button(self):
-        self._wait_until_element_appears_and_click(self.season_button)
-
-    def select_season(self):
-        self._wait_until_element_appears_and_click(self.choose_season_1)
-
-    def activate_episode_button(self):
-        self._wait_until_element_appears_and_click(self.episode_button)
-
-    def select_episode(self):
-        self._wait_until_element_appears_and_click(self.choose_episode_1)
-
-    def select_player(self):
-        required_frame = self._driver.find_element_by_xpath('//*[@id="film"]')
-        self._driver.switch_to.frame(required_frame)
-        self._wait_until_element_appears_and_click(self.choose_player)
+    def open_most_popular(self):
+        self._wait_until_element_appears_and_click(self.most_popular)
 
     def click_play_button(self):
         self._wait_until_element_appears_and_click(self.play_button)
@@ -106,23 +87,27 @@ class EndToEnd(SignIn, WebsiteSettings):
         SignIn.enter_password(self)
         SignIn.authorization(self)
 
-    def play_episode(self):
+    def open_tv_show_main_page(self):
         WebsiteSettings.search_for_show(self)
         WebsiteSettings.select_option_from_search(self)
         WebsiteSettings.click_play_button(self)
-        time.sleep(3)
-        WebsiteSettings.select_player(self)
-        time.sleep(3)
-        WebsiteSettings.activate_season_button(self)
-        time.sleep(3)
-        WebsiteSettings.select_season(self)
-        time.sleep(3)
-        WebsiteSettings.activate_episode_button(self)
-        time.sleep(3)
-        WebsiteSettings.select_episode(self)
-        time.sleep(3)
-        WebsiteSettings.start_movie(self)
-        time.sleep(60)
+        time.sleep(2)
+
+    def widget_check(self):
+        WebsiteSettings.change_to_normal_theme(self)
+        time.sleep(2)
+        WebsiteSettings.open_subscriptions(self)
+        time.sleep(2)
+        WebsiteSettings.change_to_light_theme(self)
+        time.sleep(2)
+        WebsiteSettings.open_history(self)
+        time.sleep(2)
+        WebsiteSettings.change_to_old_theme(self)
+        WebsiteSettings.change_to_dark_theme(self)
+        time.sleep(2)
+        WebsiteSettings.open_most_popular(self)
+        time.sleep(2)
 
     def logging_out(self):
         SignIn.sign_out_button(self)
+        time.sleep(2)
